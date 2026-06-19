@@ -2,5 +2,37 @@
 title: "Quarto 2"
 author: Isabella Hua
 format: html
+execute:
+  echo: false
 ---
 
+
+```{r}
+suppressPackageStartupMessages(library(tidyverse))
+```
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+  # Add points, color-coded by class, with slight transparency to handle overlapping
+  geom_point(aes(color = class), size = 3, alpha = 0.7) +
+  # Add a smooth linear trend line to show the overall negative correlation
+  geom_smooth(method = "lm", color = "black", linetype = "dashed", se = FALSE) +
+  # Apply a vibrant, distinct color palette for the car classes
+  scale_color_brewer(palette = "Set1") +
+  # Customize the text and labels
+  labs(
+    title = "Engine Displacement vs. Highway Fuel Economy",
+    subtitle = "Fuel economy data from 1999 and 2008 for 38 popular car models",
+    x = "Engine Displacement (Liters)",
+    y = "Highway Fuel Efficiency (mpg)",
+    color = "Car Class"
+  ) +
+  # Use a clean, professional theme
+  theme_minimal(base_size = 14) +
+  # Fine-tune the title font and legend positioning
+  theme(
+    plot.title = element_text(face = "bold", size = 16, color = "grey10"),
+    plot.subtitle = element_text(color = "grey40", size = 11),
+    legend.position = "right",
+    panel.grid.minor = element_blank() # Cleans up background grid
+  )
+```
